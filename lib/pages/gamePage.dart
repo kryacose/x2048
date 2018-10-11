@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../UI/gameBoard.dart';
+import '../utils/board.dart';
 
 class GamePage extends StatefulWidget {
+
+  Board b;
 
   _GamePageState createState() => _GamePageState();
 
@@ -25,12 +28,25 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+
+
   void gestureHandle(DragEndDetails details, int dir) {
     // print(details.primaryVelocity);
-    if(dir == 0 && details.primaryVelocity>0) print("down");
-    if(dir == 0 && details.primaryVelocity<0) print("up");
-    if(dir == 1 && details.primaryVelocity>0) print("right");
-    if(dir == 1 && details.primaryVelocity<0) print("left");
+    if(dir == 0 && details.primaryVelocity>0) 
+      this.setState(() {  widget.b.grid = widget.b.down();  widget.b.display();});
+    else if(dir == 0 && details.primaryVelocity<0)
+      this.setState(() {  widget.b.grid = widget.b.up();  widget.b.display();});
+    else if(dir == 1 && details.primaryVelocity>0)
+      this.setState(() {  widget.b.grid = widget.b.right(); widget.b.display();});
+    else if(dir == 1 && details.primaryVelocity<0)
+      this.setState(() {  widget.b.grid = widget.b.left();  widget.b.display();});
+  }
+
+  @override
+  initState(){
+    super.initState();
+
+    widget.b = new Board(4);
   }
 
   @override
@@ -59,7 +75,7 @@ class _GamePageState extends State<GamePage> {
 
             new Container(height: 80.0,),
             //GameBoard
-            new GameBoard(),
+            new GameBoard(widget.b.grid, widget.b.size),
           ],
         ),
       ),
