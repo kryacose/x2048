@@ -216,35 +216,8 @@ class Board{
 
 
 void main(){
-  // print("Hello");
+  print("Hello");
   Board b = new Board(4);
-
-  // b.putNum(2, 0);
-  // b.putNum(4, 1);
-  // b.putNum(2, 2);
-  // b.putNum(2, 3);
-  // b.putNum(2, 4);
-  // b.putNum(2, 5);
-  // b.putNum(4, 6);
-  // b.putNum(2, 7);
-  // b.putNum(2, 8);
-  // b.putNum(2, 9);
-  // b.putNum(2, 10);
-  // b.putNum(4, 11);
-  // b.putNum(2, 12);
-  // b.putNum(2, 13);
-  // b.putNum(2, 14);
-
-
-
-  b.randomNum();
-  // print("Randnum: $x");
-  // b.randomNum();
-  // b.randomNum();
-
-  b.display();
-
-  b.grid = b.left();
   b.display();
   b.grid = b.left();
   b.display();
