@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../pages/gamePage.dart';
 import './numTile.dart';
 
 class GameBoard extends StatefulWidget {
   // List<List<int>> grid;
-
   _GameBoardState createState() => _GameBoardState();
+
+  // GameBoard(this._onGesture);
 }
 
 class _GameBoardState extends State<GameBoard> {
@@ -19,8 +21,8 @@ class _GameBoardState extends State<GameBoard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onHorizontalDragStart: (DragStartDetails x) {print("Horizontal");},
-      onVerticalDragStart: (DragStartDetails x) {print("vertical");},
+      onHorizontalDragEnd: (gestureDetails) => GamePage.of(context).gestureHandle(gestureDetails, 1),
+      onVerticalDragEnd: (gestureDetails) => GamePage.of(context).gestureHandle(gestureDetails, 0),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Material(
