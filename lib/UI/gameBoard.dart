@@ -11,12 +11,6 @@ class GameBoard extends StatefulWidget {
 
 class _GameBoardState extends State<GameBoard> {
 
-  void _onHorizontal(){
-    print("Horizontal");
-  }
-  void _onVertical(){
-    print("Horizontal");
-  }
 
   @override
   Widget build(BuildContext context) {
