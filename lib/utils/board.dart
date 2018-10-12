@@ -20,7 +20,7 @@ class Board{
     }
 
     print("\nNew Board created,  score $score,    size $size");
-    this.randomNum();
+    randomNum();
   }
 
   void display(){
@@ -28,6 +28,17 @@ class Board{
     for(var i=0; i<size; i++){
       print(grid[i]);
     }
+  }
+
+  int gridDifference(List<List<int>> grid2){
+
+    int sum = 0;
+    for (var i = 0; i < size; i++) 
+      for (var j = 0; j < size; j++) {
+        sum += (grid[i][j] - grid2[i][j]).abs();
+      }
+
+    return sum;
   }
 
   int randomNum(){
@@ -61,7 +72,7 @@ class Board{
   }
 
   List<List<int>> up(){
-    
+    print("UP");
     List<List<int>> newGrid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
@@ -90,16 +101,16 @@ class Board{
 
         else if(newGrid[loc][i] == newGrid[j][i] && loc!=j){
           newGrid[loc][i] *= 2;
+          score += newGrid[i][loc];
           newGrid[j][i] = 0;
         }
       }
     }
-    this.randomNum();
     return newGrid;
   }
 
   List<List<int>> down(){
-
+    print("DOWN");
     List<List<int>> newGrid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
@@ -127,16 +138,17 @@ class Board{
 
         else if(newGrid[loc][i] == newGrid[j][i] && loc!=j){
           newGrid[loc][i] *= 2;
+          score += newGrid[i][loc];
           newGrid[j][i] = 0;
         }
       }
     }
-    this.randomNum();
     return newGrid;
     
   }
 
   List<List<int>> left(){
+    print("LEFT");
     List<List<int>> newGrid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
@@ -165,16 +177,17 @@ class Board{
 
         else if(newGrid[i][loc] == newGrid[i][j] && loc!=j){
           newGrid[i][loc] *= 2;
+          score += newGrid[i][loc];
           newGrid[i][j] = 0;
         }
       }
     }
-    this.randomNum();
     return newGrid;
     
   }
 
   List<List<int>> right(){
+    print("RIGHT");
     List<List<int>> newGrid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
@@ -202,14 +215,56 @@ class Board{
 
         else if(newGrid[i][loc] == newGrid[i][j] && loc!=j){
           newGrid[i][loc] *= 2;
+          score += newGrid[i][loc]; 
           newGrid[i][j] = 0;
         }
       }
     }
-    this.randomNum();
     return newGrid;
     
   }
+
+  void moveUp(){
+    List<List<int>> grid2 = this.up();
+    if(gridDifference(grid2) > 0){
+      this.grid = grid2;
+      this.randomNum();
+    }
+    else
+      this.grid = grid2;
+  }
+
+  void moveDown(){
+    List<List<int>> grid2 = this.down();
+    if(gridDifference(grid2) > 0){
+      this.grid = grid2;
+      this.randomNum();
+    }
+    else
+      this.grid = grid2;
+  }
+
+  void moveLeft(){
+    List<List<int>> grid2 = this.left();
+    if(gridDifference(grid2) > 0){
+      this.grid = grid2;
+      this.randomNum();
+    }
+    else
+      this.grid = grid2;
+  }
+
+  void moveRight(){
+    List<List<int>> grid2 = this.right();
+    if(gridDifference(grid2) > 0){
+      this.grid = grid2;
+      this.randomNum();
+    }
+    else
+      this.grid = grid2;
+  }
+
+
 }
 
 
@@ -219,6 +274,6 @@ void main(){
   print("Hello");
   Board b = new Board(4);
   b.display();
-  b.grid = b.left();
+  b.grid = b.up();
   b.display();
 }

@@ -52,7 +52,7 @@ class _GameBoardState extends State<GameBoard> {
             height: 393.0,
             child: GridView.count(
                 primary: true,
-                crossAxisCount: 4,
+                crossAxisCount: widget.size,
                 padding: EdgeInsets.all(10.0),
                 crossAxisSpacing: 7.0,
                 mainAxisSpacing: 7.0,
