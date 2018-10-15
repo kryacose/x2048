@@ -3,7 +3,10 @@ import '../UI/gameBoard.dart';
 import '../utils/board.dart';
 
 class GamePage extends StatefulWidget {
-  Board b;
+  final int size;
+  
+
+  GamePage( this.size);
 
   _GamePageState createState() => _GamePageState();
 
@@ -25,27 +28,30 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+
+  Board b;
+
   void gestureHandle(DragEndDetails details, int dir) {
     // print(details.primaryVelocity);
     if (dir == 0 && details.primaryVelocity > 0)
       this.setState(() {
-        widget.b.moveDown();
-        widget.b.display();
+        b.moveDown();
+        b.display();
       });
     else if (dir == 0 && details.primaryVelocity < 0)
       this.setState(() {
-        widget.b.moveUp();
-        widget.b.display();
+        b.moveUp();
+        b.display();
       });
     else if (dir == 1 && details.primaryVelocity > 0)
       this.setState(() {
-        widget.b.moveRight();
-        widget.b.display();
+        b.moveRight();
+        b.display();
       });
     else if (dir == 1 && details.primaryVelocity < 0)
       this.setState(() {
-        widget.b.moveLeft();
-        widget.b.display();
+        b.moveLeft();
+        b.display();
       });
   }
 
@@ -53,11 +59,11 @@ class _GamePageState extends State<GamePage> {
   initState() {
     super.initState();
 
-    widget.b = new Board(4);
+    b = new Board(widget.size);
   }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return ListView(children: <Widget>[
       Container(
         // width: double.infinity,
@@ -77,7 +83,7 @@ class _GamePageState extends State<GamePage> {
                     new Text(
                       "2048",
                       style: new TextStyle(
-                          color: Colors.white, fontSize: 60.0),
+                          color: Colors.white, fontSize: 70.0,),
                     ),
                     new Expanded(child: new Container()),
                     new Container(
@@ -94,7 +100,7 @@ class _GamePageState extends State<GamePage> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                                 Text(
-                                  widget.b.score.toString(),
+                                  b.score.toString(),
                                   style: new TextStyle(
                                       color: Colors.white, fontSize: 30.0),
                                 ),
@@ -104,7 +110,7 @@ class _GamePageState extends State<GamePage> {
                     ),
                     RawMaterialButton(
                       shape: CircleBorder(),
-                      onPressed: (){this.setState((){widget.b = new Board(4);});},
+                      onPressed: (){this.setState((){b = new Board(widget.size);});},
                       child: Icon(
                         Icons.autorenew,
                         color: Colors.white,
@@ -119,7 +125,7 @@ class _GamePageState extends State<GamePage> {
               height: 80.0,
             ),
             //GameBoard
-            new GameBoard(widget.b.grid, widget.b.size),
+            new GameBoard(b.grid, b.size),
           ],
         ),
       ),
