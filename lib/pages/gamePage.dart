@@ -125,7 +125,7 @@ class _GamePageState extends State<GamePage> {
               height: 80.0,
             ),
             //GameBoard
-            new GameBoard(b.grid, b.size),
+            new GameBoard(b, b.size),
           ],
         ),
       ),

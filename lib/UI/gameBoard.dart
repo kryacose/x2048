@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../pages/gamePage.dart';
+import '../utils/board.dart';
 import './numTile.dart';
 
 class GameBoard extends StatefulWidget {
-  final List<List<int>> grid;
+  Board b;
   final int size;
 
   _GameBoardState createState() => _GameBoardState();
 
-  GameBoard(this.grid, this.size);
+  GameBoard(this.b, this.size);
 }
 
 class _GameBoardState extends State<GameBoard> {
@@ -18,9 +19,10 @@ class _GameBoardState extends State<GameBoard> {
   initState() {
     super.initState();
 
+    widget.b = new Board(widget.size);
     tiles = new List<Widget>();
     for (var i = 0; i < widget.size * widget.size; i++) {
-      tiles.add(NumTile(20.0, widget.grid[i ~/ widget.size][i % widget.size]));
+      tiles.add(NumTile(20.0, widget.b.grid[i ~/ widget.size][i % widget.size]));
     }
   }
 
@@ -30,7 +32,7 @@ class _GameBoardState extends State<GameBoard> {
     this.setState(() {
       tiles = new List<Widget>();
       for (var i = 0; i < widget.size * widget.size; i++) {
-        tiles.add(NumTile(20.0, widget.grid[i ~/ widget.size][i % widget.size]));
+        tiles.add(NumTile(20.0, widget.b.grid[i ~/ widget.size][i % widget.size]));
       }
     });
   }

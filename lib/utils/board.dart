@@ -30,12 +30,12 @@ class Board{
     }
   }
 
-  int gridDifference(List<List<int>> grid2){
+  int gridDifference(List<List<int>> gridnew){
 
     int sum = 0;
     for (var i = 0; i < size; i++) 
       for (var j = 0; j < size; j++) {
-        sum += (grid[i][j] - grid2[i][j]).abs();
+        sum += (grid[i][j] - gridnew[i][j]).abs();
       }
 
     return sum;
@@ -71,15 +71,16 @@ class Board{
     return sum;
   }
 
-  List<List<int>> up(){
+  Board up(){
     print("UP");
-    List<List<int>> newGrid = new List<List<int>>();
+    Board newBoard = new Board(this.size);
+    // List<List<int>> newBoard.grid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
       List<int> list = new List<int>();
       for (var j = 0; j < size; j++)
         list.add(grid[i][j]);
-      newGrid.add(list);
+      newBoard.grid.add(list);
     }
 
     
@@ -87,75 +88,79 @@ class Board{
       int done = 0;
       for(int j=1; j<size; j++){
         int loc = j;
-        if(newGrid[j][i] == 0) continue;
+        if(newBoard.grid[j][i] == 0) continue;
         for(int k=j-1; k>=0; k--){
-          if(newGrid[k][i] == 0) loc = k;
-          else if(newGrid[k][i] == newGrid[j][i] && done == 0 ) {loc = k; done = 1; break;}
+          if(newBoard.grid[k][i] == 0) loc = k;
+          else if(newBoard.grid[k][i] == newBoard.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newGrid[loc][i] == 0){
-          newGrid[loc][i] = newGrid[j][i];
-          newGrid[j][i] = 0;
+        if(newBoard.grid[loc][i] == 0){
+          newBoard.grid[loc][i] = newBoard.grid[j][i];
+          newBoard.grid[j][i] = 0;
         }
 
-        else if(newGrid[loc][i] == newGrid[j][i] && loc!=j){
-          newGrid[loc][i] *= 2;
-          score += newGrid[i][loc];
-          newGrid[j][i] = 0;
+        else if(newBoard.grid[loc][i] == newBoard.grid[j][i] && loc!=j){
+          newBoard.grid[loc][i] *= 2;
+          score += newBoard.grid[i][loc];
+          newBoard.grid[j][i] = 0;
         }
       }
     }
-    return newGrid;
+    return newBoard;
   }
 
-  List<List<int>> down(){
+  Board down(){
     print("DOWN");
-    List<List<int>> newGrid = new List<List<int>>();
+    Board newBoard = new Board(this.size);
+
+    // List<List<int>> newBoard.grid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
       List<int> list = new List<int>();
       for (var j = 0; j < size; j++)
         list.add(grid[i][j]);
-      newGrid.add(list);
+      newBoard.grid.add(list);
     }
     
     for(int i=0; i<size; i++){
       int done = 0;
       for(int j=size-2; j>=0; j--){
         int loc = j;
-        if(newGrid[j][i] == 0) continue;
+        if(newBoard.grid[j][i] == 0) continue;
         for(int k=j+1; k<size; k++){
-          if(newGrid[k][i] == 0) loc = k;
-          else if(newGrid[k][i] == newGrid[j][i] && done == 0 ) {loc = k; done = 1; break;}
+          if(newBoard.grid[k][i] == 0) loc = k;
+          else if(newBoard.grid[k][i] == newBoard.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newGrid[loc][i] == 0){
-          newGrid[loc][i] = newGrid[j][i];
-          newGrid[j][i] = 0;
+        if(newBoard.grid[loc][i] == 0){
+          newBoard.grid[loc][i] = newBoard.grid[j][i];
+          newBoard.grid[j][i] = 0;
         }
 
-        else if(newGrid[loc][i] == newGrid[j][i] && loc!=j){
-          newGrid[loc][i] *= 2;
-          score += newGrid[i][loc];
-          newGrid[j][i] = 0;
+        else if(newBoard.grid[loc][i] == newBoard.grid[j][i] && loc!=j){
+          newBoard.grid[loc][i] *= 2;
+          score += newBoard.grid[i][loc];
+          newBoard.grid[j][i] = 0;
         }
       }
     }
-    return newGrid;
+    return newBoard;
     
   }
 
-  List<List<int>> left(){
+  Board left(){
     print("LEFT");
-    List<List<int>> newGrid = new List<List<int>>();
+    Board newBoard = new Board(this.size);
+
+    // List<List<int>> newBoard.grid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
       List<int> list = new List<int>();
       for (var j = 0; j < size; j++)
         list.add(grid[i][j]);
-      newGrid.add(list);
+      newBoard.grid.add(list);
     }
 
     
@@ -163,105 +168,107 @@ class Board{
       int done = 0;
       for(int j=1; j<size; j++){
         int loc = j;
-        if(newGrid[i][j] == 0) continue;
+        if(newBoard.grid[i][j] == 0) continue;
         for(int k=j-1; k>=0; k--){
-          if(newGrid[i][k] == 0) loc = k;
-          else if(newGrid[i][k] == newGrid[i][j] && done == 0 ) {loc = k; done = 1; break;}
+          if(newBoard.grid[i][k] == 0) loc = k;
+          else if(newBoard.grid[i][k] == newBoard.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newGrid[i][loc] == 0){
-          newGrid[i][loc] = newGrid[i][j];
-          newGrid[i][j] = 0;
+        if(newBoard.grid[i][loc] == 0){
+          newBoard.grid[i][loc] = newBoard.grid[i][j];
+          newBoard.grid[i][j] = 0;
         }
 
-        else if(newGrid[i][loc] == newGrid[i][j] && loc!=j){
-          newGrid[i][loc] *= 2;
-          score += newGrid[i][loc];
-          newGrid[i][j] = 0;
+        else if(newBoard.grid[i][loc] == newBoard.grid[i][j] && loc!=j){
+          newBoard.grid[i][loc] *= 2;
+          score += newBoard.grid[i][loc];
+          newBoard.grid[i][j] = 0;
         }
       }
     }
-    return newGrid;
+    return newBoard;
     
   }
 
-  List<List<int>> right(){
+  Board right(){
     print("RIGHT");
-    List<List<int>> newGrid = new List<List<int>>();
+    Board newBoard = new Board(this.size);
+
+    // List<List<int>> newBoard.grid = new List<List<int>>();
 
     for(var i = 0; i < size; i++) {
       List<int> list = new List<int>();
       for (var j = 0; j < size; j++)
         list.add(grid[i][j]);
-      newGrid.add(list);
+      newBoard.grid.add(list);
     }
     
     for(int i=0; i<size; i++){
       int done = 0;
       for(int j=size-2; j>=0; j--){
         int loc = j;
-        if(newGrid[i][j] == 0) continue;
+        if(newBoard.grid[i][j] == 0) continue;
         for(int k=j+1; k<size; k++){
-          if(newGrid[i][k] == 0) loc = k;
-          else if(newGrid[i][k] == newGrid[i][j] && done == 0 ) {loc = k; done = 1; break;}
+          if(newBoard.grid[i][k] == 0) loc = k;
+          else if(newBoard.grid[i][k] == newBoard.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newGrid[i][loc] == 0){
-          newGrid[i][loc] = newGrid[i][j];
-          newGrid[i][j] = 0;
+        if(newBoard.grid[i][loc] == 0){
+          newBoard.grid[i][loc] = newBoard.grid[i][j];
+          newBoard.grid[i][j] = 0;
         }
 
-        else if(newGrid[i][loc] == newGrid[i][j] && loc!=j){
-          newGrid[i][loc] *= 2;
-          score += newGrid[i][loc]; 
-          newGrid[i][j] = 0;
+        else if(newBoard.grid[i][loc] == newBoard.grid[i][j] && loc!=j){
+          newBoard.grid[i][loc] *= 2;
+          score += newBoard.grid[i][loc]; 
+          newBoard.grid[i][j] = 0;
         }
       }
     }
-    return newGrid;
+    return newBoard;
     
   }
 
   void moveUp(){
-    List<List<int>> grid2 = this.up();
-    if(gridDifference(grid2) > 0){
-      this.grid = grid2;
+    Board newBoard = this.up();
+    if(gridDifference(newBoard.grid) > 0){
+      this.grid = newBoard.grid;
       this.randomNum();
     }
     else
-      this.grid = grid2;
+      this.grid = newBoard.grid;
   }
 
   void moveDown(){
-    List<List<int>> grid2 = this.down();
-    if(gridDifference(grid2) > 0){
-      this.grid = grid2;
+    Board newBoard = this.down();
+    if(gridDifference(newBoard.grid) > 0){
+      this.grid = newBoard.grid;
       this.randomNum();
     }
     else
-      this.grid = grid2;
+      this.grid = newBoard.grid;
   }
 
   void moveLeft(){
-    List<List<int>> grid2 = this.left();
-    if(gridDifference(grid2) > 0){
-      this.grid = grid2;
+    Board newBoard = this.left();
+    if(gridDifference(newBoard.grid) > 0){
+      this.grid = newBoard.grid;
       this.randomNum();
     }
     else
-      this.grid = grid2;
+      this.grid = newBoard.grid;
   }
 
   void moveRight(){
-    List<List<int>> grid2 = this.right();
-    if(gridDifference(grid2) > 0){
-      this.grid = grid2;
+    Board newBoard = this.right();
+    if(gridDifference(newBoard.grid) > 0){
+      this.grid = newBoard.grid;
       this.randomNum();
     }
     else
-      this.grid = grid2;
+      this.grid = newBoard.grid;
   }
 
 
@@ -274,6 +281,6 @@ void main(){
   print("Hello");
   Board b = new Board(4);
   b.display();
-  b.grid = b.up();
+  b.moveUp();
   b.display();
 }
