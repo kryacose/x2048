@@ -94,6 +94,7 @@ class _LandingPageState extends State<LandingPage> {
 
             // Start Button
             RawMaterialButton(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
               padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Text(
                 "START",
