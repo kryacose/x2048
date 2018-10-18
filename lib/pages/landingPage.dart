@@ -7,7 +7,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  int selectedSize;
+  int selectedSize = 4;
   int selectedFlex = 1;
   double sizeSelectorButtonSize = 60.0;
 

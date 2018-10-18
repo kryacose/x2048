@@ -35,22 +35,22 @@ class _GamePageState extends State<GamePage> {
     // print(details.primaryVelocity);
     if (dir == 0 && details.primaryVelocity > 0)
       this.setState(() {
-        b.moveDown();
+        b = b.moveDown();
         b.display();
       });
     else if (dir == 0 && details.primaryVelocity < 0)
       this.setState(() {
-        b.moveUp();
+        b = b.moveUp();
         b.display();
       });
     else if (dir == 1 && details.primaryVelocity > 0)
       this.setState(() {
-        b.moveRight();
+        b = b.moveRight();
         b.display();
       });
     else if (dir == 1 && details.primaryVelocity < 0)
       this.setState(() {
-        b.moveLeft();
+        b = b.moveLeft();
         b.display();
       });
   }
@@ -60,6 +60,7 @@ class _GamePageState extends State<GamePage> {
     super.initState();
 
     b = new Board(widget.size);
+    b.randomNum();
   }
 
   @override
@@ -110,7 +111,7 @@ class _GamePageState extends State<GamePage> {
                     ),
                     RawMaterialButton(
                       shape: CircleBorder(),
-                      onPressed: (){this.setState((){b = new Board(widget.size);});},
+                      onPressed: (){this.setState((){b = new Board(widget.size); b.randomNum();});},
                       child: Icon(
                         Icons.autorenew,
                         color: Colors.white,

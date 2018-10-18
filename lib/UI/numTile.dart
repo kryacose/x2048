@@ -47,7 +47,7 @@ class NumTile extends StatelessWidget {
             border: new Border.all(color: Color(0x00000000), width: 0.0),
             borderRadius: BorderRadius.circular(10.0)),
         child: Center(
-            child: Text("$value", style: TextStyle(fontSize: numSize(value), color: numColor(value)),
+            child: value == 0 ? Container() : Text("$value", style: TextStyle(fontSize: numSize(value), color: numColor(value)),
           )
         ),
       ),

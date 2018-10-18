@@ -4,7 +4,8 @@ import './pages/landingPage.dart';
 
 void main(){
   runApp(new MaterialApp(
-    home: new LandingPage(), 
+    home: LandingPage(), 
+    debugShowCheckedModeBanner: false,
   ));
 }
 

@@ -20,13 +20,14 @@ class Board{
     }
 
     print("\nNew Board created,  score $score,    size $size");
-    randomNum();
+    // randomNum();
   }
 
   Board copy(Board old){
     this.size = old.size;
     this.score = old.score;
 
+    this.grid = new List<List <int>>();
     for(var i = 0; i < this.size; i++) {
       List<int> list = new List<int>();
       for (var j = 0; j < this.size; j++)
@@ -87,171 +88,150 @@ class Board{
 
  
 
-  Board up(){
+  void up(){
     print("UP");
-    Board newBoard = new Board(this.size).copy(this);
     
-
-
-    
-    for(int i=0; i<size; i++){
+    for(int i=0; i<this.size; i++){
       int done = 0;
-      for(int j=1; j<size; j++){
+      for(int j=1; j<this.size; j++){
         int loc = j;
-        if(newBoard.grid[j][i] == 0) continue;
+        if(this.grid[j][i] == 0) continue;
         for(int k=j-1; k>=0; k--){
-          if(newBoard.grid[k][i] == 0) loc = k;
-          else if(newBoard.grid[k][i] == newBoard.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
+          if(this.grid[k][i] == 0) loc = k;
+          else if(this.grid[k][i] == this.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newBoard.grid[loc][i] == 0){
-          newBoard.grid[loc][i] = newBoard.grid[j][i];
-          newBoard.grid[j][i] = 0;
+        if(this.grid[loc][i] == 0){
+          this.grid[loc][i] = this.grid[j][i];
+          this.grid[j][i] = 0;
         }
 
-        else if(newBoard.grid[loc][i] == newBoard.grid[j][i] && loc!=j){
-          newBoard.grid[loc][i] *= 2;
-          score += newBoard.grid[i][loc];
-          newBoard.grid[j][i] = 0;
+        else if(this.grid[loc][i] == this.grid[j][i] && loc!=j){
+          this.grid[loc][i] *= 2;
+          score += this.grid[i][loc];
+          this.grid[j][i] = 0;
         }
       }
     }
-    return newBoard;
   }
 
-  Board down(){
+  void down(){
     print("DOWN");
-    Board newBoard = new Board(this.size).copy(this);
     
-    for(int i=0; i<size; i++){
+    for(int i=0; i<this.size; i++){
       int done = 0;
-      for(int j=size-2; j>=0; j--){
+      for(int j=this.size-2; j>=0; j--){
         int loc = j;
-        if(newBoard.grid[j][i] == 0) continue;
+        if(this.grid[j][i] == 0) continue;
         for(int k=j+1; k<size; k++){
-          if(newBoard.grid[k][i] == 0) loc = k;
-          else if(newBoard.grid[k][i] == newBoard.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
+          if(this.grid[k][i] == 0) loc = k;
+          else if(this.grid[k][i] == this.grid[j][i] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newBoard.grid[loc][i] == 0){
-          newBoard.grid[loc][i] = newBoard.grid[j][i];
-          newBoard.grid[j][i] = 0;
+        if(this.grid[loc][i] == 0){
+          this.grid[loc][i] = this.grid[j][i];
+          this.grid[j][i] = 0;
         }
 
-        else if(newBoard.grid[loc][i] == newBoard.grid[j][i] && loc!=j){
-          newBoard.grid[loc][i] *= 2;
-          score += newBoard.grid[i][loc];
-          newBoard.grid[j][i] = 0;
+        else if(this.grid[loc][i] == this.grid[j][i] && loc!=j){
+          this.grid[loc][i] *= 2;
+          score += this.grid[i][loc];
+          this.grid[j][i] = 0;
         }
       }
     }
-    return newBoard;
     
   }
 
-  Board left(){
+  void left(){
     print("LEFT");
-    Board newBoard = new Board(this.size).copy(this);
-
     
-    for(int i=0; i<size; i++){
+    for(int i=0; i<this.size; i++){
       int done = 0;
-      for(int j=1; j<size; j++){
+      for(int j=1; j<this.size; j++){
         int loc = j;
-        if(newBoard.grid[i][j] == 0) continue;
+        if(this.grid[i][j] == 0) continue;
         for(int k=j-1; k>=0; k--){
-          if(newBoard.grid[i][k] == 0) loc = k;
-          else if(newBoard.grid[i][k] == newBoard.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
+          if(this.grid[i][k] == 0) loc = k;
+          else if(this.grid[i][k] == this.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newBoard.grid[i][loc] == 0){
-          newBoard.grid[i][loc] = newBoard.grid[i][j];
-          newBoard.grid[i][j] = 0;
+        if(this.grid[i][loc] == 0){
+          this.grid[i][loc] = this.grid[i][j];
+          this.grid[i][j] = 0;
         }
 
-        else if(newBoard.grid[i][loc] == newBoard.grid[i][j] && loc!=j){
-          newBoard.grid[i][loc] *= 2;
-          score += newBoard.grid[i][loc];
-          newBoard.grid[i][j] = 0;
+        else if(this.grid[i][loc] == this.grid[i][j] && loc!=j){
+          this.grid[i][loc] *= 2;
+          score += this.grid[i][loc];
+          this.grid[i][j] = 0;
         }
       }
     }
-    return newBoard;
     
   }
 
-  Board right(){
+  void right(){
     print("RIGHT");
-    Board newBoard = new Board(this.size).copy(this);
     
-    for(int i=0; i<size; i++){
+    for(int i=0; i<this.size; i++){
       int done = 0;
-      for(int j=size-2; j>=0; j--){
+      for(int j=this.size-2; j>=0; j--){
         int loc = j;
-        if(newBoard.grid[i][j] == 0) continue;
+        if(this.grid[i][j] == 0) continue;
         for(int k=j+1; k<size; k++){
-          if(newBoard.grid[i][k] == 0) loc = k;
-          else if(newBoard.grid[i][k] == newBoard.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
+          if(this.grid[i][k] == 0) loc = k;
+          else if(this.grid[i][k] == this.grid[i][j] && done == 0 ) {loc = k; done = 1; break;}
           else {done = 0; break;}
         }
 
-        if(newBoard.grid[i][loc] == 0){
-          newBoard.grid[i][loc] = newBoard.grid[i][j];
-          newBoard.grid[i][j] = 0;
+        if(this.grid[i][loc] == 0){
+          this.grid[i][loc] = this.grid[i][j];
+          this.grid[i][j] = 0;
         }
 
-        else if(newBoard.grid[i][loc] == newBoard.grid[i][j] && loc!=j){
-          newBoard.grid[i][loc] *= 2;
-          score += newBoard.grid[i][loc]; 
-          newBoard.grid[i][j] = 0;
+        else if(this.grid[i][loc] == this.grid[i][j] && loc!=j){
+          this.grid[i][loc] *= 2;
+          score += this.grid[i][loc]; 
+          this.grid[i][j] = 0;
         }
       }
     }
+  }
+
+  Board moveUp(){
+    Board newBoard = new Board(this.size).copy(this);
+    newBoard.up();
+    if(gridDifference(newBoard.grid) > 0)
+      newBoard.randomNum();
     return newBoard;
-    
   }
 
-  void moveUp(){
-    Board newBoard = this.up();
-    if(gridDifference(newBoard.grid) > 0){
-      this.copy(newBoard);
-      this.randomNum();
-    }
-    else
-      this.grid = newBoard.grid;
+  Board moveDown(){
+    Board newBoard = new Board(this.size).copy(this);
+    newBoard.down();
+    if(gridDifference(newBoard.grid) > 0)
+      newBoard.randomNum();
+    return newBoard;
   }
 
-  void moveDown(){
-    Board newBoard = this.down();
-    if(gridDifference(newBoard.grid) > 0){
-      this.grid = newBoard.grid;
-      this.randomNum();
-    }
-    else
-      this.grid = newBoard.grid;
+  Board moveLeft(){
+    Board newBoard = new Board(this.size).copy(this);
+    newBoard.left();
+    if(gridDifference(newBoard.grid) > 0)
+      newBoard.randomNum();
+    return newBoard;
   }
 
-  void moveLeft(){
-    Board newBoard = this.left();
-    if(gridDifference(newBoard.grid) > 0){
-      this.grid = newBoard.grid;
-      this.randomNum();
-    }
-    else
-      this.grid = newBoard.grid;
-  }
-
-  void moveRight(){
-    Board newBoard = this.right();
-    if(gridDifference(newBoard.grid) > 0){
-      this.grid = newBoard.grid;
-      this.randomNum();
-    }
-    else
-      this.grid = newBoard.grid;
+  Board moveRight(){
+    Board newBoard = new Board(this.size).copy(this);
+    newBoard.right();
+    if(gridDifference(newBoard.grid) > 0)
+      newBoard.randomNum();
+    return newBoard;
   }
 
 
@@ -263,7 +243,8 @@ class Board{
 void main(){
   print("Hello");
   Board b = new Board(4);
+  b.randomNum();
   b.display();
-  b.moveUp();
+  b = b.moveUp();
   b.display();
 }
