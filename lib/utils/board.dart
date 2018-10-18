@@ -6,7 +6,7 @@ class Board{
   int score;
   int size;
 
-  Board(size){
+  Board(int size){
     this.size = size;
     this.score = 0;
     this.grid = new List<List<int>>();
@@ -23,6 +23,20 @@ class Board{
     randomNum();
   }
 
+  Board copy(Board old){
+    this.size = old.size;
+    this.score = old.score;
+
+    for(var i = 0; i < this.size; i++) {
+      List<int> list = new List<int>();
+      for (var j = 0; j < this.size; j++)
+        list.add(old.grid[i][j]);
+      this.grid.add(list);
+    }
+
+    return this;
+  }
+
   void display(){
     print("\nScore: $score\nSize: $size");
     for(var i=0; i<size; i++){
@@ -37,6 +51,15 @@ class Board{
       for (var j = 0; j < size; j++) {
         sum += (grid[i][j] - gridnew[i][j]).abs();
       }
+
+    return sum;
+  }
+
+   int zeroCount(){
+    int sum = 0;
+    for(var i=0; i<size; i++)
+      for(var j=0; j<size; j++)
+        if(grid[i][j] == 0) sum++;
 
     return sum;
   }
@@ -62,26 +85,13 @@ class Board{
     return 1;
   }
 
-  int zeroCount(){
-    int sum = 0;
-    for(var i=0; i<size; i++)
-      for(var j=0; j<size; j++)
-        if(grid[i][j] == 0) sum++;
-
-    return sum;
-  }
+ 
 
   Board up(){
     print("UP");
-    Board newBoard = new Board(this.size);
-    // List<List<int>> newBoard.grid = new List<List<int>>();
+    Board newBoard = new Board(this.size).copy(this);
+    
 
-    for(var i = 0; i < size; i++) {
-      List<int> list = new List<int>();
-      for (var j = 0; j < size; j++)
-        list.add(grid[i][j]);
-      newBoard.grid.add(list);
-    }
 
     
     for(int i=0; i<size; i++){
@@ -112,16 +122,7 @@ class Board{
 
   Board down(){
     print("DOWN");
-    Board newBoard = new Board(this.size);
-
-    // List<List<int>> newBoard.grid = new List<List<int>>();
-
-    for(var i = 0; i < size; i++) {
-      List<int> list = new List<int>();
-      for (var j = 0; j < size; j++)
-        list.add(grid[i][j]);
-      newBoard.grid.add(list);
-    }
+    Board newBoard = new Board(this.size).copy(this);
     
     for(int i=0; i<size; i++){
       int done = 0;
@@ -152,16 +153,7 @@ class Board{
 
   Board left(){
     print("LEFT");
-    Board newBoard = new Board(this.size);
-
-    // List<List<int>> newBoard.grid = new List<List<int>>();
-
-    for(var i = 0; i < size; i++) {
-      List<int> list = new List<int>();
-      for (var j = 0; j < size; j++)
-        list.add(grid[i][j]);
-      newBoard.grid.add(list);
-    }
+    Board newBoard = new Board(this.size).copy(this);
 
     
     for(int i=0; i<size; i++){
@@ -193,16 +185,7 @@ class Board{
 
   Board right(){
     print("RIGHT");
-    Board newBoard = new Board(this.size);
-
-    // List<List<int>> newBoard.grid = new List<List<int>>();
-
-    for(var i = 0; i < size; i++) {
-      List<int> list = new List<int>();
-      for (var j = 0; j < size; j++)
-        list.add(grid[i][j]);
-      newBoard.grid.add(list);
-    }
+    Board newBoard = new Board(this.size).copy(this);
     
     for(int i=0; i<size; i++){
       int done = 0;
@@ -234,7 +217,7 @@ class Board{
   void moveUp(){
     Board newBoard = this.up();
     if(gridDifference(newBoard.grid) > 0){
-      this.grid = newBoard.grid;
+      this.copy(newBoard);
       this.randomNum();
     }
     else
