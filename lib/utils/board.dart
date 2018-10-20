@@ -70,9 +70,9 @@ class Board{
     
     var rnd = new Random();
     int num = (rnd.nextInt(2) + 1)*2;
-    int loc = rnd.nextInt(16);
+    int loc = rnd.nextInt(this.size*this.size);
     while( this.grid[loc~/size][loc%size] != 0)
-      loc = rnd.nextInt(16);
+      loc = rnd.nextInt(this.size*this.size);
     this.grid[loc~/size][loc%size] = num;
 
     print("\nRandom number $num at location $loc");

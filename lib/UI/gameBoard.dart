@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-// import '../pages/gamePage.dart';
-// import '../utils/board.dart';
-// import './numTile.dart';
 
 class GameBoard extends StatefulWidget {
   final List<Widget> tiles;
@@ -14,30 +11,6 @@ class GameBoard extends StatefulWidget {
 
 class _GameBoardState extends State<GameBoard> {
   List<Widget> tiles;
-
-  // @override
-  // initState() {
-  //   super.initState();
-
-  //   // widget.b = new Board(widget.size);
-  //   tiles = new List<Widget>();
-  //   for (var i = 0; i < widget.size * widget.size; i++) {
-  //     tiles
-  //         .add(NumTile(20.0, widget.b.grid[i ~/ widget.size][i % widget.size]));
-  //   }
-  // }
-
-  // @override
-  // void didUpdateWidget(GameBoard oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   this.setState(() {
-  //     tiles = new List<Widget>();
-  //     for (var i = 0; i < widget.size * widget.size; i++) {
-  //       tiles.add(
-  //           NumTile(20.0, widget.b.grid[i ~/ widget.size][i % widget.size]));
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

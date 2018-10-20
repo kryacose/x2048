@@ -129,6 +129,7 @@ class _GamePageState extends State<GamePage> {
                         this.setState(() {
                           b = new Board(widget.size);
                           b.randomNum();
+                          makeTiles();
                         });
                       },
                       child: Icon(
