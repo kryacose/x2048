@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SizeSelectionButton extends StatelessWidget {
   final double buttonSize;
   final int value;
-  VoidCallback _onPress;
+  final VoidCallback _onPress;
 
   SizeSelectionButton(this.buttonSize, this.value, this._onPress);
 

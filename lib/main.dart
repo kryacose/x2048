@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './pages/gamePage.dart';
+// import './pages/gamePage.dart';
 import './pages/landingPage.dart';
 
 void main(){

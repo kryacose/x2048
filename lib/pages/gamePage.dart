@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../UI/gameBoard.dart';
+import '../UI/numTile.dart';
 import '../utils/board.dart';
 
 class GamePage extends StatefulWidget {
   final int size;
-  
 
-  GamePage( this.size);
+  GamePage(this.size);
 
   _GamePageState createState() => _GamePageState();
 
@@ -28,8 +28,15 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-
   Board b;
+  List<Widget> tiles;
+
+  void makeTiles(){
+    tiles = new List<Widget>();
+    for (var i = 0; i < b.size * b.size; i++) {
+      tiles.add(NumTile(20.0, b.grid[i ~/ b.size][i % b.size]));
+    }
+  }
 
   void gestureHandle(DragEndDetails details, int dir) {
     // print(details.primaryVelocity);
@@ -37,21 +44,25 @@ class _GamePageState extends State<GamePage> {
       this.setState(() {
         b = b.moveDown();
         b.display();
+        makeTiles();
       });
     else if (dir == 0 && details.primaryVelocity < 0)
       this.setState(() {
         b = b.moveUp();
         b.display();
+        makeTiles();
       });
     else if (dir == 1 && details.primaryVelocity > 0)
       this.setState(() {
         b = b.moveRight();
         b.display();
+        makeTiles();
       });
     else if (dir == 1 && details.primaryVelocity < 0)
       this.setState(() {
         b = b.moveLeft();
         b.display();
+        makeTiles();
       });
   }
 
@@ -61,6 +72,7 @@ class _GamePageState extends State<GamePage> {
 
     b = new Board(widget.size);
     b.randomNum();
+    makeTiles();
   }
 
   @override
@@ -84,7 +96,9 @@ class _GamePageState extends State<GamePage> {
                     new Text(
                       "2048",
                       style: new TextStyle(
-                          color: Colors.white, fontSize: 70.0,),
+                        color: Colors.white,
+                        fontSize: 70.0,
+                      ),
                     ),
                     new Expanded(child: new Container()),
                     new Container(
@@ -111,11 +125,17 @@ class _GamePageState extends State<GamePage> {
                     ),
                     RawMaterialButton(
                       shape: CircleBorder(),
-                      onPressed: (){this.setState((){b = new Board(widget.size); b.randomNum();});},
+                      onPressed: () {
+                        this.setState(() {
+                          b = new Board(widget.size);
+                          b.randomNum();
+                        });
+                      },
                       child: Icon(
                         Icons.autorenew,
                         color: Colors.white,
-                        size: 50.0,),
+                        size: 50.0,
+                      ),
                     )
                   ],
                 ),
@@ -125,8 +145,14 @@ class _GamePageState extends State<GamePage> {
             new Container(
               height: 80.0,
             ),
+
             //GameBoard
-            new GameBoard(b, b.size),
+            GestureDetector(
+                onHorizontalDragEnd: (gestureDetails) =>
+                    gestureHandle(gestureDetails, 1),
+                onVerticalDragEnd: (gestureDetails) =>
+                    gestureHandle(gestureDetails, 0),
+                child: GameBoard(tiles, b.size)),
           ],
         ),
       ),
